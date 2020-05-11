@@ -35,7 +35,26 @@ namespace BalloonTextChanger
                 Uri uri = new Uri(dialog.FileName);
                 BitmapImage image = new BitmapImage(uri);
                 mainCanvas.Background = new ImageBrush(image);
+
+                mainCanvas.Width = image.Width;
+                mainCanvas.Height = image.Height;
+                
             }
+        }
+
+        private void mainCanvas_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            Point coord = e.GetPosition(mainCanvas); ;
+
+            Ellipse cirkel = new Ellipse();
+            cirkel.Fill = Brushes.Red;
+            cirkel.Width = 5;
+            cirkel.Height = 5;
+
+            Canvas.SetLeft(cirkel, coord.X);
+            Canvas.SetTop(cirkel, coord.Y);
+            mainCanvas.Children.Add(cirkel);
+
         }
     }
 }

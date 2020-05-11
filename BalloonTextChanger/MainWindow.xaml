@@ -11,7 +11,7 @@
             <RowDefinition Height="*" />
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
-        <Canvas Grid.Row="0" Grid.Column="0" Name="mainCanvas" />
+        <Canvas Grid.Row="0" Grid.Column="0" Name="mainCanvas" MouseDown="mainCanvas_MouseDown"/>
         <StackPanel Grid.Row="1" Grid.Column="0">
             <Button x:Name="btnLoadImage" Content="Load Image" Click="btnLoadImage_Click"  />
         </StackPanel>
