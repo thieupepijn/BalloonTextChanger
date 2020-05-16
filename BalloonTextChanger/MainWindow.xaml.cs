@@ -27,14 +27,8 @@ namespace BalloonTextChanger
             bool? dialogResult = dialog.ShowDialog();
             if (dialogResult.HasValue && dialogResult.Value)
             {
-                Uri uri = new Uri(dialog.FileName);
-                BitmapImage image = new BitmapImage(uri);
-
-                _bitmap = Util.BitmapImage2Bitmap(image); 
-                mainCanvas.Background = new ImageBrush(image);
-
-                mainCanvas.Width = image.Width;
-                mainCanvas.Height = image.Height;
+                _bitmap = new Bitmap(dialog.FileName);
+                SetCanvas(_bitmap);
             }
         }
 
@@ -65,7 +59,6 @@ namespace BalloonTextChanger
             SetCanvas(_bitmap);
 
         }
-
 
         private void SetCanvas(Bitmap bitmap)
         {
