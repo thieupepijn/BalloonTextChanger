@@ -60,7 +60,23 @@ namespace BalloonTextChanger
             {
                 MessageBox.Show("Niet-Wit!");
             }
+
+            _bitmap = _bitmap.Clone(new Rectangle(0, 0, 50, 50), System.Drawing.Imaging.PixelFormat.DontCare);
+            SetCanvas(_bitmap);
+
         }
+
+
+        private void SetCanvas(Bitmap bitmap)
+        {
+            BitmapImage bitmapImage = Util.BitMap2BitmapImage(bitmap);
+            mainCanvas.Background = new ImageBrush(bitmapImage);
+            mainCanvas.Width = bitmapImage.Width;
+            mainCanvas.Height = bitmapImage.Height;
+        }
+
+
+     
 
 
       
