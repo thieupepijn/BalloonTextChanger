@@ -15,7 +15,8 @@ namespace BalloonTextChanger
     public partial class MainWindow : Window
     {
         Bitmap _bitmap;
-      
+        Coordinate[,] _allCoordinates;
+
         public MainWindow()
         {
             InitializeComponent();
@@ -28,36 +29,24 @@ namespace BalloonTextChanger
             if (dialogResult.HasValue && dialogResult.Value)
             {
                 _bitmap = new Bitmap(dialog.FileName);
+                _allCoordinates = Util.PixelsToCoordinates(_bitmap);
                 SetCanvas(_bitmap);
             }
         }
 
         private void mainCanvas_MouseDown(object sender, MouseButtonEventArgs e)
         {
-            Coordinate coord = new Coordinate((int)e.GetPosition(mainCanvas).X, (int)e.GetPosition(mainCanvas).Y); ;
-
-            //Ellipse cirkel = new Ellipse();
-            //cirkel.Fill = Brushes.Red;
-            //cirkel.Width = 5;
-            //cirkel.Height = 5;
-
-            //Canvas.SetLeft(cirkel, coord.X);
-            //Canvas.SetTop(cirkel, coord.Y);
-            //mainCanvas.Children.Add(cirkel);
-
-            Color color = Util.GetColor(_bitmap, coord);
-            if (Util.IsWhite(color))
+            Coordinate clickedCoordinate = new Coordinate((int)e.GetPosition(mainCanvas).X, (int)e.GetPosition(mainCanvas).Y, _bitmap);
+         
+            if (clickedCoordinate.FloodFillStatus == Enumerations.FloodFillStatus.Suitable)
             {
-                MessageBox.Show("Wit!");
-            }
-            else
-            {
-                MessageBox.Show("Niet-Wit!");
-            }
-
-            _bitmap = _bitmap.Clone(new Rectangle(0, 0, 50, 50), System.Drawing.Imaging.PixelFormat.DontCare);
-            SetCanvas(_bitmap);
-
+                FloodFilledRegion region = new FloodFilledRegion(clickedCoordinate, _allCoordinates);
+                foreach(Coordinate coordinate in region.Flooded)
+                {
+                    _bitmap.SetPixel(coordinate.X, coordinate.Y, Color.Purple);
+                }
+                SetCanvas(_bitmap);
+            }       
         }
 
         private void SetCanvas(Bitmap bitmap)
@@ -67,6 +56,8 @@ namespace BalloonTextChanger
             mainCanvas.Width = bitmapImage.Width;
             mainCanvas.Height = bitmapImage.Height;
         }
+
+
 
 
      

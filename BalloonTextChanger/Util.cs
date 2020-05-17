@@ -46,6 +46,14 @@ namespace BalloonTextChanger
             return color;
         }
 
+
+        public static bool IsWhite(Bitmap bitmap, int x, int y)
+        {
+            Color color = bitmap.GetPixel(x, y);
+            return IsWhite(color);
+        }
+
+
         public static bool IsWhite(Color color)
         {
             if ((color.R < 200) || (color.G < 200) || (color.B < 200))
@@ -56,6 +64,24 @@ namespace BalloonTextChanger
             {
                 return true;
             }
+        }
+
+
+        public static Coordinate[,] PixelsToCoordinates(Bitmap bitmap)
+        {
+            Coordinate[,] coords = new Coordinate[bitmap.Width, bitmap.Height];
+
+            for (int x = 0; x < bitmap.Width; x++)
+            {
+                for (int y = 0; y < bitmap.Height; y++)
+                {
+                    {
+                        Coordinate coordinate = new Coordinate(x, y, bitmap);
+                        coords[x, y] = coordinate;
+                    }
+                }
+            }
+            return coords;
         }
 
     }
