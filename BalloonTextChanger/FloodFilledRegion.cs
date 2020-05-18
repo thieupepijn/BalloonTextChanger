@@ -9,7 +9,7 @@ namespace BalloonTextChanger
     class FloodFilledRegion
     {
 
-        public List<Coordinate> Flooded { get; private set; }
+        public List<Coordinate> Flooded { get; set; }
         public int Left { get; private set; }
         public int Top { get; private set; }
         public int Right { get; private set; }
@@ -23,6 +23,7 @@ namespace BalloonTextChanger
             FloodFill(coords, workStack);
             Flooded = GetFlooded(coords);
             GetBorders(Flooded);
+            GetRemnantsWithinBorders(coords);          
         }
 
 
@@ -70,6 +71,7 @@ namespace BalloonTextChanger
             Down = flooded.Max(c => c.Y);
         }
 
+
         public void ResetFloodedCoords(Coordinate[,] coords)
         {
             for (int x = 0; x < coords.GetLength(0); x++)
@@ -96,6 +98,25 @@ namespace BalloonTextChanger
                     {
                         coords[x, y].FloodFillStatus = Enumerations.FloodFillStatus.NotSuitable;
                     }
+                }
+            }
+        }
+
+
+        private void GetRemnantsWithinBorders(Coordinate[,] coords)
+        {
+            for (int x = 0; x < coords.GetLength(0); x++)
+            {
+                for (int y = 0; y < coords.GetLength(1); y++)
+                {
+
+                    if ((x > Left) && (x < Right) &&
+                    (y > Top) && (y < Down))
+                    {
+                        coords[x, y].FloodFillStatus = Enumerations.FloodFillStatus.Yes;
+                        Flooded.Add(coords[x, y]);
+                    }
+
                 }
             }
         }
