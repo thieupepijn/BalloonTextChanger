@@ -6,7 +6,7 @@ using System.Linq;
 
 namespace BalloonTextChanger
 {
-    class FloodFilledRegion
+    public class FloodFilledRegion
     {
 
         public List<Coordinate> Flooded { get; set; }
