@@ -105,13 +105,13 @@ namespace BalloonTextChanger
 
         private void GetRemnantsWithinBorders(Coordinate[,] coords)
         {
-            for (int x = 0; x < coords.GetLength(0); x++)
-            {
-                for (int y = 0; y < coords.GetLength(1); y++)
-                {
 
-                    if ((x > Left) && (x < Right) &&
-                    (y > Top) && (y < Down))
+            for (int x = Left; x < Right; x++)
+            {
+                for (int y = Top; y < Down; y++)
+                {
+                    Coordinate coord = coords[x, y];
+                    if ((coord.SomethingLeft(Flooded)) && (coord.SomethingRight(Flooded)))
                     {
                         coords[x, y].FloodFillStatus = Enumerations.FloodFillStatus.Yes;
                         Flooded.Add(coords[x, y]);

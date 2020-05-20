@@ -112,6 +112,30 @@ namespace BalloonTextChanger
             return neighbours;
         }
 
+        public bool SomethingLeft(List<Coordinate> coords)
+        {
+            foreach(Coordinate coord in coords)
+            {
+                if ((coord.Y == Y) && (coord.X < X))
+                {
+                    return true;
+                }                    
+            }
+            return false;
+        }
+
+        public bool SomethingRight(List<Coordinate> coords)
+        {
+            foreach (Coordinate coord in coords)
+            {
+                if ((coord.Y == Y) && (coord.X > X))
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
         public override bool Equals(object obj)
         {
             if (obj == null)
