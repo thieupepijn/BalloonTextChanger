@@ -43,7 +43,7 @@ namespace BalloonTextChanger
                 FloodFilledRegion region = new FloodFilledRegion(clickedCoordinate, _allCoordinates);
                 foreach(Coordinate coordinate in region.Flooded)
                 {
-                    _bitmap.SetPixel(coordinate.X, coordinate.Y, Color.Purple);
+                    _bitmap.SetPixel(coordinate.X, coordinate.Y, Color.White);
                 }
                 SetCanvas(_bitmap);
             }       
