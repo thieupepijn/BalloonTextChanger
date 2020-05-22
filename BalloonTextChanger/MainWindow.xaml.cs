@@ -37,14 +37,19 @@ namespace BalloonTextChanger
         private void mainCanvas_MouseDown(object sender, MouseButtonEventArgs e)
         {
             Coordinate clickedCoordinate = new Coordinate((int)e.GetPosition(mainCanvas).X, (int)e.GetPosition(mainCanvas).Y, _bitmap);
-         
+
             if (clickedCoordinate.FloodFillStatus == Enumerations.FloodFillStatus.Suitable)
             {
                 FloodFilledRegion region = new FloodFilledRegion(clickedCoordinate, _allCoordinates);
-                Util.ColorBitmapRegion(_bitmap, region);
-                SetCanvas(_bitmap);
+                UtilDraw.ColorBitmapRegion(_bitmap, region);
                 Util.ResetFloodedCoords(_allCoordinates);
-            }       
+                InputBox inputbox = new InputBox();
+                if (inputbox.ShowDialog().Value)
+                {
+                    UtilDraw.WriteText(_bitmap, clickedCoordinate, inputbox.Text);
+                }
+                SetCanvas(_bitmap);
+            }
         }
 
         private void SetCanvas(Bitmap bitmap)

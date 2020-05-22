@@ -76,13 +76,6 @@ namespace BalloonTextChanger
             return coords;
         }
 
-        public static void ColorBitmapRegion(Bitmap bitmap, FloodFilledRegion region)
-        {
-            foreach (Coordinate coordinate in region.Flooded)
-            {
-                bitmap.SetPixel(coordinate.X, coordinate.Y, Color.White);
-            }
-        }
 
         public static void ResetFloodedCoords(Coordinate[,] coords)
         {
