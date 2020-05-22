@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Drawing;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace BalloonTextChanger
 {
@@ -23,7 +24,7 @@ namespace BalloonTextChanger
             FloodFill(coords, workStack);
             Flooded = GetFlooded(coords);
             GetBorders(Flooded);
-            GetRemnantsWithinBorders(coords);          
+            GetRemnantsWithinBorders(coords);
         }
 
 
@@ -72,25 +73,41 @@ namespace BalloonTextChanger
         }
 
 
+        //private void GetRemnantsWithinBorders(Coordinate[,] coords)
+        //{
+        //    for (int x = Left; x < Right; x++)
+        //    {
+        //        for (int y = Top; y < Down; y++)
+        //        {
+        //            Coordinate coord = coords[x, y];
+        //            if ((coords[x, y].FloodFillStatus != Enumerations.FloodFillStatus.Yes) &&
+        //               (coord.SomethingLeft(Flooded)) && (coord.SomethingRight(Flooded)) &&
+        //               (coord.SomethingTop(Flooded)) && (coord.SomethingBottom(Flooded)))
+        //            {
+        //                coords[x, y].FloodFillStatus = Enumerations.FloodFillStatus.Yes;
+        //                Flooded.Add(coords[x, y]);
+        //            }
+        //        }
+        //    }
+        //}
+
+
         private void GetRemnantsWithinBorders(Coordinate[,] coords)
         {
-            //List<Coordinate> lijst = coords.Cast<Coordinate>().ToList();
+            List<Coordinate> allCoords = coords.Cast<Coordinate>().ToList();
+            allCoords = allCoords.FindAll(c => c.FloodFillStatus != Enumerations.FloodFillStatus.Yes);
+            allCoords = allCoords.FindAll(c => c.FloodFillStatus != Enumerations.FloodFillStatus.Yes && c.X > Left && c.X < Right && c.Y > Top && c.Y < Down);
+            allCoords = allCoords.FindAll(c => c.SomethingLeft(Flooded) && c.SomethingRight(Flooded) && c.SomethingTop(Flooded) && c.SomethingBottom(Flooded));
+            
+         //   Parallel.ForEach()
 
-            for (int x = Left; x < Right; x++)
+            foreach (Coordinate coord in allCoords)
             {
-                for (int y = Top; y < Down; y++)
-                {
-                    Coordinate coord = coords[x, y];
-                    if ((coords[x,y].FloodFillStatus != Enumerations.FloodFillStatus.Yes) && 
-                       (coord.SomethingLeft(Flooded)) && (coord.SomethingRight(Flooded)) &&
-                       (coord.SomethingTop(Flooded)) && (coord.SomethingBottom(Flooded))) 
-                    {
-                        coords[x, y].FloodFillStatus = Enumerations.FloodFillStatus.Yes;
-                        Flooded.Add(coords[x, y]);
-                    }
-                }
+                coords[coord.X, coord.Y].FloodFillStatus = Enumerations.FloodFillStatus.Yes;
+                Flooded.Add(coord);
             }
         }
+
 
 
 
