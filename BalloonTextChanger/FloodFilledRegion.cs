@@ -72,39 +72,10 @@ namespace BalloonTextChanger
         }
 
 
-        public void ResetFloodedCoords(Coordinate[,] coords)
-        {
-            for (int x = 0; x < coords.GetLength(0); x++)
-            {
-                for (int y = 0; y < coords.GetLength(1); y++)
-                {
-                    Coordinate coordinate = coords[x, y];
-                    if (coords[x, y].FloodFillStatus == Enumerations.FloodFillStatus.Yes)
-                    {
-                        coords[x, y].FloodFillStatus = Enumerations.FloodFillStatus.NotSuitable;
-                    }
-                }
-            }
-        }
-
-        public void ResetFloodedCoords(Coordinate[,] coords, int left, int top, int right, int down)
-        {
-            for (int x = 0; x < coords.GetLength(0); x++)
-            {
-                for (int y = 0; y < coords.GetLength(1); y++)
-                {
-                    Coordinate coordinate = coords[x, y];
-                    if ((x >= left) && (y >= top) && (x <= right) && (y <= down))
-                    {
-                        coords[x, y].FloodFillStatus = Enumerations.FloodFillStatus.NotSuitable;
-                    }
-                }
-            }
-        }
-
-
         private void GetRemnantsWithinBorders(Coordinate[,] coords)
         {
+            //List<Coordinate> lijst = coords.Cast<Coordinate>().ToList();
+
             for (int x = Left; x < Right; x++)
             {
                 for (int y = Top; y < Down; y++)
@@ -120,6 +91,8 @@ namespace BalloonTextChanger
                 }
             }
         }
+
+
 
     }
 }

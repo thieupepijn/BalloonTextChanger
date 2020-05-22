@@ -39,14 +39,6 @@ namespace BalloonTextChanger
             }
         }
 
-
-        public static Color GetColor(Bitmap bitmap, Coordinate coord)
-        {
-            Color color = bitmap.GetPixel((int)coord.X, (int)coord.Y);
-            return color;
-        }
-
-
         public static bool IsWhite(Bitmap bitmap, int x, int y)
         {
             Color color = bitmap.GetPixel(x, y);
@@ -89,6 +81,21 @@ namespace BalloonTextChanger
             foreach (Coordinate coordinate in region.Flooded)
             {
                 bitmap.SetPixel(coordinate.X, coordinate.Y, Color.White);
+            }
+        }
+
+        public static void ResetFloodedCoords(Coordinate[,] coords)
+        {
+            for (int x = 0; x < coords.GetLength(0); x++)
+            {
+                for (int y = 0; y < coords.GetLength(1); y++)
+                {
+                    Coordinate coordinate = coords[x, y];
+                    if (coords[x, y].FloodFillStatus == Enumerations.FloodFillStatus.Yes)
+                    {
+                        coords[x, y].FloodFillStatus = Enumerations.FloodFillStatus.NotSuitable;
+                    }
+                }
             }
         }
 
