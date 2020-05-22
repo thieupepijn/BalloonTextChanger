@@ -73,39 +73,24 @@ namespace BalloonTextChanger
         }
 
 
-        //private void GetRemnantsWithinBorders(Coordinate[,] coords)
-        //{
-        //    for (int x = Left; x < Right; x++)
-        //    {
-        //        for (int y = Top; y < Down; y++)
-        //        {
-        //            Coordinate coord = coords[x, y];
-        //            if ((coords[x, y].FloodFillStatus != Enumerations.FloodFillStatus.Yes) &&
-        //               (coord.SomethingLeft(Flooded)) && (coord.SomethingRight(Flooded)) &&
-        //               (coord.SomethingTop(Flooded)) && (coord.SomethingBottom(Flooded)))
-        //            {
-        //                coords[x, y].FloodFillStatus = Enumerations.FloodFillStatus.Yes;
-        //                Flooded.Add(coords[x, y]);
-        //            }
-        //        }
-        //    }
-        //}
-
-
         private void GetRemnantsWithinBorders(Coordinate[,] coords)
         {
             List<Coordinate> allCoords = coords.Cast<Coordinate>().ToList();
             allCoords = allCoords.FindAll(c => c.FloodFillStatus != Enumerations.FloodFillStatus.Yes);
             allCoords = allCoords.FindAll(c => c.FloodFillStatus != Enumerations.FloodFillStatus.Yes && c.X > Left && c.X < Right && c.Y > Top && c.Y < Down);
-            allCoords = allCoords.FindAll(c => c.SomethingLeft(Flooded) && c.SomethingRight(Flooded) && c.SomethingTop(Flooded) && c.SomethingBottom(Flooded));
-            
-         //   Parallel.ForEach()
+            List<Coordinate> remnants = new List<Coordinate>();
 
-            foreach (Coordinate coord in allCoords)
+            Parallel.ForEach(allCoords, (c) =>
             {
-                coords[coord.X, coord.Y].FloodFillStatus = Enumerations.FloodFillStatus.Yes;
-                Flooded.Add(coord);
+                if (c.SomethingLeft(Flooded) && c.SomethingRight(Flooded) && c.SomethingTop(Flooded) && c.SomethingBottom(Flooded))
+                {
+                    coords[c.X, c.Y].FloodFillStatus = Enumerations.FloodFillStatus.Yes;
+                    remnants.Add(c);
+                }
             }
+            );
+
+            Flooded.AddRange(remnants);
         }
 
 
