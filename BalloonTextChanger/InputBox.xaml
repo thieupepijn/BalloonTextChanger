@@ -10,13 +10,16 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="*" />
             <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*" />
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
         <TextBox Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Name="txtInput" Width="500" TextWrapping="Wrap" AcceptsReturn="True" />
-        <Button Grid.Row="1" Grid.Column="0" Name="btnCancel" Content="Cancel"  Click="btnCancel_Click" />
-        <Button Grid.Row="1" Grid.Column="1" Name="btnOk" Content="Ok" Click="btnOk_Click" />
+        <Label Grid.Row="1" Grid.Column="0" Content="FontSize" />
+        <ComboBox Grid.Row="1" Grid.Column="1" Name="cmbFontSizes" />
+        <Button Grid.Row="2" Grid.Column="0" Name="btnCancel" Content="Cancel"  Click="btnCancel_Click" />
+        <Button Grid.Row="2" Grid.Column="1" Name="btnOk" Content="Ok" Click="btnOk_Click" />
     </Grid>
 </Window>

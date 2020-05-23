@@ -18,15 +18,26 @@ namespace BalloonTextChanger
     public partial class InputBox : Window
     {
         public string Text { get; set; }
+        public int FontSize { get; set; }
 
         public InputBox()
         {
             InitializeComponent();
+
+            List<int> fontSizes = new List<int>();
+            for (int fontSize = 8; fontSize < 26; fontSize++)
+            {
+                fontSizes.Add(fontSize);
+            }
+            cmbFontSizes.ItemsSource = fontSizes;
+            cmbFontSizes.SelectedIndex = 0;
+
         }
 
         private void btnOk_Click(object sender, RoutedEventArgs e)
         {
             Text = txtInput.Text;
+            FontSize = (int)cmbFontSizes.SelectedItem;
             DialogResult = true;
         }
 
