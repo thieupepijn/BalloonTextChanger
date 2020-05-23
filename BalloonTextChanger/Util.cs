@@ -77,7 +77,7 @@ namespace BalloonTextChanger
         }
 
 
-        public static void ResetFloodedCoords(Coordinate[,] coords)
+        public static void ResetFloodedCoords(Coordinate[,] coords, Bitmap bitmap)
         {
             for (int x = 0; x < coords.GetLength(0); x++)
             {
@@ -86,7 +86,14 @@ namespace BalloonTextChanger
                     Coordinate coordinate = coords[x, y];
                     if (coords[x, y].FloodFillStatus == Enumerations.FloodFillStatus.Yes)
                     {
-                        coords[x, y].FloodFillStatus = Enumerations.FloodFillStatus.NotSuitable;
+                        if (IsWhite(bitmap, x, y))
+                        {
+                            coords[x, y].FloodFillStatus = Enumerations.FloodFillStatus.Suitable;
+                        }
+                        else
+                        {
+                            coords[x, y].FloodFillStatus = Enumerations.FloodFillStatus.NotSuitable;
+                        }
                     }
                 }
             }

@@ -20,7 +20,8 @@ namespace BalloonTextChanger
         {
             using(Graphics graafix = Graphics.FromImage(bitmap))
             {
-                graafix.DrawString(text, new Font(FontFamily.GenericSansSerif, 10), Brushes.Black, new PointF(coordinate.X, coordinate.Y));
+                Font font = new Font("Comic Sans MS", 12, FontStyle.Italic);
+                graafix.DrawString(text, font,  Brushes.Black, new PointF(coordinate.X, coordinate.Y));
             }
         }
 
