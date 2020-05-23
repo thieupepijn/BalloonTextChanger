@@ -29,5 +29,11 @@ namespace BalloonTextChanger
             Text = txtInput.Text;
             DialogResult = true;
         }
+
+        private void btnCancel_Click(object sender, RoutedEventArgs e)
+        {
+            Text = string.Empty;
+            DialogResult = false;
+        }
     }
 }
