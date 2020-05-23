@@ -16,6 +16,7 @@ namespace BalloonTextChanger
     {
         Bitmap _bitmap;
         Coordinate[,] _allCoordinates;
+        int _fontSize = 8;
 
         public MainWindow()
         {
@@ -37,13 +38,14 @@ namespace BalloonTextChanger
         private void mainCanvas_MouseDown(object sender, MouseButtonEventArgs e)
         {
             Coordinate clickedCoordinate = new Coordinate((int)e.GetPosition(mainCanvas).X, (int)e.GetPosition(mainCanvas).Y, _bitmap);
-            InputBox inputbox = new InputBox();
+            InputBox inputbox = new InputBox(_fontSize);
             if ((clickedCoordinate.FloodFillStatus == Enumerations.FloodFillStatus.Suitable) && (inputbox.ShowDialog().Value))
             {
                 FloodFilledRegion region = new FloodFilledRegion(clickedCoordinate, _allCoordinates);
                 UtilDraw.ColorBitmapRegion(_bitmap, region);
                 Util.ResetFloodedCoords(_allCoordinates, _bitmap);
-                UtilDraw.WriteText(_bitmap, clickedCoordinate, inputbox.Text, inputbox.FontSize);
+                _fontSize = inputbox.FontSize;
+                UtilDraw.WriteText(_bitmap, clickedCoordinate, inputbox.Text, _fontSize);
                 SetCanvas(_bitmap);
             }
         }

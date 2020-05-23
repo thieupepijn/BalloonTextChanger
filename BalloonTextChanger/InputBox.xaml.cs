@@ -20,7 +20,7 @@ namespace BalloonTextChanger
         public string Text { get; set; }
         public int FontSize { get; set; }
 
-        public InputBox()
+        public InputBox(int defaultFontSize)
         {
             InitializeComponent();
 
@@ -30,8 +30,7 @@ namespace BalloonTextChanger
                 fontSizes.Add(fontSize);
             }
             cmbFontSizes.ItemsSource = fontSizes;
-            cmbFontSizes.SelectedIndex = 0;
-
+            cmbFontSizes.SelectedIndex = fontSizes.FindIndex(fs => fs == defaultFontSize);
         }
 
         private void btnOk_Click(object sender, RoutedEventArgs e)
