@@ -59,16 +59,18 @@ namespace BalloonTextChanger
             mainCanvas.Height = bitmapImage.Height;
         }
 
+        private void btnSaveImage_Click(object sender, RoutedEventArgs e)
+        {
+            SaveFileDialog dialog = new SaveFileDialog();
+            dialog.Filter = "JPG | *.jpg";
+            dialog.DefaultExt = "*.jpg";
+            bool? dialogResult = dialog.ShowDialog();
 
 
-
-     
-
-
-      
-
-
-       
-
+            if (dialogResult.HasValue && dialogResult.Value)
+            {
+                _bitmap.Save(dialog.FileName);
+            }
+        }
     }
 }
