@@ -18,7 +18,7 @@ namespace BalloonTextChanger
     public partial class InputBox : Window
     {
         public string Text { get; set; }
-        public int FontSize { get; set; }
+        public int TextSize { get; set; }
 
         public InputBox(int defaultFontSize)
         {
@@ -36,7 +36,7 @@ namespace BalloonTextChanger
         private void btnOk_Click(object sender, RoutedEventArgs e)
         {
             Text = txtInput.Text;
-            FontSize = (int)cmbFontSizes.SelectedItem;
+            TextSize = (int)cmbFontSizes.SelectedItem;
             DialogResult = true;
         }
 

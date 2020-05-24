@@ -21,7 +21,8 @@ namespace BalloonTextChanger
             using (Graphics graafix = Graphics.FromImage(bitmap))
             {
                 Font font = new Font("Comic Sans MS", fontSize, FontStyle.Italic);
-                graafix.DrawString(text, font, Brushes.Black, new PointF(coordinate.X, coordinate.Y));
+                SizeF textSize = graafix.MeasureString(text, font);
+                graafix.DrawString(text, font, Brushes.Black, new PointF(coordinate.X - (textSize.Width / 2), coordinate.Y - (textSize.Height / 2))); 
             }
         }
 
