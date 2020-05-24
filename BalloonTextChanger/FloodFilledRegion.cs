@@ -16,6 +16,8 @@ namespace BalloonTextChanger
         public int Right { get; private set; }
         public int Down { get; private set; }
 
+        public Coordinate Average { get; private set; }
+
 
         public FloodFilledRegion(Coordinate startCoordinate, Coordinate[,] coords)
         {
@@ -25,6 +27,7 @@ namespace BalloonTextChanger
             Flooded = GetFlooded(coords);
             GetBorders(Flooded);
             GetRemnantsWithinBorders(coords);
+            Average = Coordinate.Average(Flooded);
         }
 
 

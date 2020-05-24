@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Drawing;
 using System.Text;
+using System.Linq;
 
 namespace BalloonTextChanger
 {
@@ -11,6 +12,13 @@ namespace BalloonTextChanger
         public int Y { get; set; }
 
         public Enumerations.FloodFillStatus FloodFillStatus { get; set; }
+
+
+        public Coordinate(int x, int y)
+        {
+            X = x;
+            Y = y;
+        }
 
 
         public Coordinate(int x, int y, Bitmap bitmap)
@@ -27,8 +35,6 @@ namespace BalloonTextChanger
                 FloodFillStatus = Enumerations.FloodFillStatus.NotSuitable;
             }
         }
-    
-
 
         public Coordinate Left(Coordinate[,] coords)
         {
@@ -41,7 +47,6 @@ namespace BalloonTextChanger
                 return null;
             }
         }
-
 
         public Coordinate Up(Coordinate[,] coords)
         {
@@ -79,8 +84,6 @@ namespace BalloonTextChanger
             }
         }
 
-
-
         public List<Coordinate> Neigbours(Coordinate[,] coords)
         {
             List<Coordinate> neighbours = new List<Coordinate>();
@@ -114,12 +117,12 @@ namespace BalloonTextChanger
 
         public bool SomethingLeft(List<Coordinate> coords)
         {
-            foreach(Coordinate coord in coords)
+            foreach (Coordinate coord in coords)
             {
                 if ((coord.Y == Y) && (coord.X < X))
                 {
                     return true;
-                }                    
+                }
             }
             return false;
         }
@@ -138,7 +141,7 @@ namespace BalloonTextChanger
 
         public bool SomethingTop(List<Coordinate> coords)
         {
-            foreach(Coordinate coord in coords)
+            foreach (Coordinate coord in coords)
             {
                 if ((coord.X == X) && (coord.Y < Y))
                 {
@@ -151,7 +154,7 @@ namespace BalloonTextChanger
 
         public bool SomethingBottom(List<Coordinate> coords)
         {
-            foreach(Coordinate coord in coords)
+            foreach (Coordinate coord in coords)
             {
                 if ((coord.X == X) && (coord.Y > Y))
                 {
@@ -204,10 +207,15 @@ namespace BalloonTextChanger
         }
 
 
+        public static Coordinate Average(List<Coordinate> coordinates)
+        {
+            int averageX = (int)coordinates.Average(c => c.X);
+            int averageY = (int)coordinates.Average(c => c.Y);
+            return new Coordinate(averageX, averageY);
+        }
 
 
 
-      
 
 
     }
